@@ -2,8 +2,8 @@ import java.io.File;
 import java.util.Scanner;
 
 public class hw3 {
-    public static void main(String[] args) throws Exception{
-        if(args.length != 1){
+    public static void main(String[] args) throws Exception {
+        if (args.length != 1) {
             System.out.println("必須且只能有一個檔案");
             System.exit(0);
         }
@@ -12,12 +12,12 @@ public class hw3 {
 
         File file = new File(args[0]);
         Scanner reader = new Scanner(file);
-        while(reader.hasNextLine()) {
+        while (reader.hasNextLine()) {
             String[] str = reader.nextLine().split("\\s+");
             String name = str[0];
             int[] scores = new int[5];
-            for(int i=1;i<6;i++){
-                scores[i-1] = Integer.parseInt(str[i]);
+            for (int i = 1; i < 6; i++) {
+                scores[i - 1] = Integer.parseInt(str[i]);
             }
             scoreManager.addStudent(name, scores);
         }
@@ -28,10 +28,10 @@ public class hw3 {
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
         label:
-        while(isRunning){
+        while (isRunning) {
             System.out.print(">");
             String inputLine = input.nextLine().trim();
-            if(inputLine.isEmpty()){
+            if (inputLine.isEmpty()) {
                 continue;
             }
             String[] parts = inputLine.split("\\s+");
@@ -50,16 +50,22 @@ public class hw3 {
                     }
 
                     boolean success = scoreManager.addStudent(name, scores);
-                    if(success){System.out.println("新增成功");}
-                    else{System.out.println("新增失敗，此學生已存在");}
+                    if (success) {
+                        System.out.println("新增成功");
+                    } else {
+                        System.out.println("新增失敗，此學生已存在");
+                    }
                     break;
                 }
                 case "delete": {
                     String name = parts[1];
                     boolean success = scoreManager.deleteStudent(name);
-                    if(success){System.out.println("刪除成功");}
-                    else{System.out.println("刪除失敗，查無此學生");
-                    break;
+                    if (success) {
+                        System.out.println("刪除成功");
+                    } else {
+                        System.out.println("刪除失敗，查無此學生");
+                        break;
+                    }
                 }
                 case "show":
                     if (parts[1].equals("individual") && parts[2].equals("average")) {
