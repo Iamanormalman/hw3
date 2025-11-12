@@ -15,11 +15,11 @@ public class Student {
         return scores.clone();
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setScore(int[] scores) {
-        this.scores = scores.clone();
+    public boolean setIndividualScore(int index, int score) {
+        if (index >= 0 && index < scores.length && score >= 0 && score <= 100) {
+            scores[index] = score;
+            return true;
+        }
+        return false;
     }
 }

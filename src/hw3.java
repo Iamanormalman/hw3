@@ -42,20 +42,24 @@ public class hw3 {
                     isRunning = false;
                     break label;
                 case "add": {
-                    String name = parts[1];
-                    String[] scoresStr = parts[2].split(",");
-                    int[] scores = new int[scoresStr.length];
-                    for (int i = 0; i < scoresStr.length; i++) {
-                        scores[i] = Integer.parseInt(scoresStr[i]);
-                    }
+                    try {
+                        String name = parts[1];
+                        String[] scoresStr = parts[2].split(",");
+                        int[] scores = new int[scoresStr.length];
+                        for (int i = 0; i < scoresStr.length; i++) {
+                            scores[i] = Integer.parseInt(scoresStr[i]);
+                        }
 
-                    boolean success = scoreManager.addStudent(name, scores);
-                    if (success) {
-                        System.out.println("新增成功");
-                    } else {
-                        System.out.println("新增失敗，此學生已存在");
+                        boolean success = scoreManager.addStudent(name, scores);
+                        if (success) {
+                            System.out.println("新增成功");
+                        } else {
+                            System.out.println("新增失敗：此學生已存在");
+                        }
+                        break;
+                    } catch (Exception e){
+                        System.out.println("新增失敗：格式錯誤，正確格式為 add [Student name] [Homework1, Homework2, Homework3, Final Project1, Final Project2]");
                     }
-                    break;
                 }
                 case "delete": {
                     String name = parts[1];
@@ -67,23 +71,58 @@ public class hw3 {
                     }
                     break;
                 }
-                case "show":
-                    if (parts[1].equals("individual") && parts[2].equals("average")) {
-                        String name = parts[3];
-                        double avg = scoreManager.showIndividualAverage(name);
-                        if(avg == -1){System.out.println("查無資料");}
-                        else {System.out.println(formatAverage(avg));}
-                    } else if (parts[1].equals("individual") && parts[2].equals("score")) {
-                        String name = parts[3];
-                        int[] scores = scoreManager.showIndividualScore(name);
-                        if (scores != null) {
-                            System.out.print(name);
-                            for (int score : scores) {
-                                System.out.print(" " + score);
-                            }
-                            System.out.println();
+                case "update": {
+                    try {
+                        String name = parts[1];
+                        String subject;
+                        int score;
+
+                        if (parts[2].equals("Final") && parts.length >= 5) {
+                            subject = parts[2] + " " + parts[3];
+                            score = Integer.parseInt(parts[4]);
                         } else {
-                            System.out.println("查無資料");
+                            subject = parts[2];
+                            score = Integer.parseInt(parts[3]);
+                        }
+
+                        boolean success = scoreManager.updateScore(name, subject, score);
+                        if (success) {
+                            System.out.println("修改成功");
+                        } else {
+                            System.out.println("修改失敗：學生不存在或科目名稱錯誤");
+                        }
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("修改失敗：格式錯誤，正確格式為 update [Student name] [科目] [成績]");
+                    }
+                }                case "show":
+                    if (parts[1].equals("individual") && parts[2].equals("average")) {
+                        try {
+                            String name = parts[3];
+                            double avg = scoreManager.showIndividualAverage(name);
+                            if (avg == -1) {
+                                System.out.println("查無資料");
+                            } else {
+                                System.out.println(formatAverage(avg));
+                            }
+                        } catch (Exception e){
+                            System.out.println("格式錯誤，正確格式為 show individual average [Student name]");
+                        }
+                    } else if (parts[1].equals("individual") && parts[2].equals("score")) {
+                        try {
+                            String name = parts[3];
+                            int[] scores = scoreManager.showIndividualScore(name);
+                            if (scores != null) {
+                                System.out.print(name);
+                                for (int score : scores) {
+                                    System.out.print(" " + score);
+                                }
+                                System.out.println();
+                            } else {
+                                System.out.println("查無資料");
+                            }
+                        } catch (Exception e){
+                            System.out.println("格式錯誤，正確格式為 show individual score [Student name]");
                         }
                     } else if (parts[1].startsWith("Homework")) {
                         String numberStr = parts[1].substring(8);

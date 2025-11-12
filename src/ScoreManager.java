@@ -82,4 +82,30 @@ public class ScoreManager {
         }
         return null;
     }
+
+    public boolean updateScore(String name, String subject, int score) {
+        Student student = findStudent(name);
+        if (student == null) {
+            return false;
+        }
+
+        int index = -1;
+        if (subject.equals("Homework1")) {
+            index = 0;
+        } else if (subject.equals("Homework2")) {
+            index = 1;
+        } else if (subject.equals("Homework3")) {
+            index = 2;
+        } else if (subject.equals("FinalProject1") || subject.equals("Final Project1")) {
+            index = 3;
+        } else if (subject.equals("FinalProject2") || subject.equals("Final Project2")) {
+            index = 4;
+        }
+
+        if (index == -1) {
+            return false;
+        }
+
+        return student.setIndividualScore(index, score);
+    }
 }
