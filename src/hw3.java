@@ -64,13 +64,15 @@ public class hw3 {
                         System.out.println("刪除成功");
                     } else {
                         System.out.println("刪除失敗，查無此學生");
-                        break;
                     }
+                    break;
                 }
                 case "show":
                     if (parts[1].equals("individual") && parts[2].equals("average")) {
                         String name = parts[3];
-                        System.out.println(formatAverage(scoreManager.showIndividualAverage(name)));
+                        double avg = scoreManager.showIndividualAverage(name);
+                        if(avg == -1){System.out.println("查無資料");}
+                        else {System.out.println(formatAverage(avg));}
                     } else if (parts[1].equals("individual") && parts[2].equals("score")) {
                         String name = parts[3];
                         int[] scores = scoreManager.showIndividualScore(name);
@@ -105,7 +107,7 @@ public class hw3 {
     }
 
     public static String formatAverage(double avg){
-        double rounded = Math.round(avg*100.0/100.0);
+        double rounded = Math.round(avg*100.0)/100.0;
 
         if(rounded == (int)rounded){
             return String.valueOf((int)rounded);
