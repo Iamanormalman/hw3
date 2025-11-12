@@ -4,7 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c0bea3f5-893d-4dd5-8b02-eded4bc2fe4b" name="Changes" comment="Initial commit" />
+    <list default="true" id="c0bea3f5-893d-4dd5-8b02-eded4bc2fe4b" name="Changes" comment="Initial commit">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/AddScore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeleteScore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/DeleteScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/Students.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShowFinalProjectScore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShowHomeworkAverage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShowIndividualAverage.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShowIndividualScore.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ShowTotal.java" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -13,6 +23,18 @@
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "Iamanormalman"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/Iamanormalman/hw3.git",
+    "accountId": "29d2197f-2718-4848-b013-5fc08ceb3b3e"
+  }
+}]]></component>
   <component name="ProjectColorInfo">{
   &quot;associatedIndex&quot;: 7
 }</component>
@@ -27,11 +49,17 @@
     "ModuleVcsDetector.initialDetectionPerformed": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
+    "git-widget-placeholder": "master",
     "ignore.virus.scanning.warn.message": "true",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "D:/Codes/計概作業/hw3"
   }
 }]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\Codes\計概作業\hw3" />
+    </key>
+  </component>
   <component name="RunManager">
     <configuration default="true" type="JetRunConfigurationType">
       <module name="hw3" />
@@ -61,7 +89,23 @@
       <option name="project" value="LOCAL" />
       <updated>1762925280875</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1762925518767</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1762925518767</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Initial commit">
+      <option name="closed" value="true" />
+      <created>1762925751967</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1762925751967</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="VcsManagerConfiguration">
