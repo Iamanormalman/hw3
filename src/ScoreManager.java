@@ -7,17 +7,20 @@ public class ScoreManager {
         students = new ArrayList<>();
     }
 
-    public void addStudent(String name, int[] scores){
+    public boolean addStudent(String name, int[] scores){
+        if(findStudent(name)!=null){return false;}
         students.add(new Student(name, scores));
+        return true;
     }
 
-    public void deleteStudent(String name){
+    public boolean deleteStudent(String name){
         for(Student s:students){
             if(s.getName().equals(name)){
                 students.remove(s);
-                break;
+                return true;
             }
         }
+        return false;
     }
 
     public int[] showIndividualScore(String name){
@@ -69,5 +72,14 @@ public class ScoreManager {
             result += "\n";
         }
         return result;
+    }
+
+    private Student findStudent(String name){
+        for(Student s:students){
+            if(s.getName().equals(name)){
+                return s;
+            }
+        }
+        return null;
     }
 }

@@ -27,76 +27,75 @@ public class hw3 {
 
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
+        label:
         while(isRunning){
+            System.out.print(">");
             String inputLine = input.nextLine().trim();
             if(inputLine.isEmpty()){
                 continue;
             }
             String[] parts = inputLine.split("\\s+");
             String commandKey = parts[0];
-            if(commandKey.equals("exit")){
-                System.out.println("感謝使用!再見!");
-                isRunning = false;
-                break;
-            }
-            
-            else if (commandKey.equals("add")) {
-                String name = parts[1];
-                
-                String[] scoresStr = parts[2].split(",");
-                int[] scores = new int[scoresStr.length];
-                for(int i=0;i<scoresStr.length;i++){
-                    scores[i] = Integer.parseInt(scoresStr[i]);
-                }
-
-                scoreManager.addStudent(name, scores);
-                System.out.println("新增成功");
-            }
-            
-            else if (commandKey.equals("delete")) {
-                String name = parts[1];
-                scoreManager.deleteStudent(name);
-                System.out.println("刪除成功");
-            }
-
-            else if (commandKey.equals("show")) {
-                if(parts[1].equals("individual") && parts[2].equals("average")){
-                    String name = parts[3];
-                    System.out.println(scoreManager.showIndividualAverage(name));
-                } else if (parts[1].equals("individual") && parts[2].equals("score")){
-                    String name = parts[3];
-                    int[] scores =scoreManager.showIndividualScore(name);
-                    if(scores != null){
-                        System.out.print(name);
-                        for (int score : scores) {
-                            System.out.print(" " + score);
-                        }
-                        System.out.println();
-                    } else {
-                        System.out.println("查無資料");
+            switch (commandKey) {
+                case "exit":
+                    System.out.println("感謝使用!再見!");
+                    isRunning = false;
+                    break label;
+                case "add": {
+                    String name = parts[1];
+                    String[] scoresStr = parts[2].split(",");
+                    int[] scores = new int[scoresStr.length];
+                    for (int i = 0; i < scoresStr.length; i++) {
+                        scores[i] = Integer.parseInt(scoresStr[i]);
                     }
-                } else if (parts[1].startsWith("Homework")){
-                    String numberStr = parts[1].substring(8);
-                    int number = Integer.parseInt(numberStr);
-                    System.out.println(scoreManager.showHomeworkAverage(number));
-                } else if (parts[1].startsWith("Final")){
-                    String numberStr = parts[2].substring(7);
-                    int number = Integer.parseInt(numberStr);
-                    System.out.println(scoreManager.showFinalProjectAverage(number));
-                } else if (parts[1].equals("total")){
-                    String result = scoreManager.showTotal();
-                    System.out.println(result);
-                } else {
-                    System.out.println("指令輸入錯誤!請重新輸入");
+
+                    boolean success = scoreManager.addStudent(name, scores);
+                    if(success){System.out.println("新增成功");}
+                    else{System.out.println("新增失敗，此學生已存在");}
+                    break;
                 }
+                case "delete": {
+                    String name = parts[1];
+                    boolean success = scoreManager.deleteStudent(name);
+                    if(success){System.out.println("刪除成功");}
+                    else{System.out.println("刪除失敗，查無此學生");
+                    break;
+                }
+                case "show":
+                    if (parts[1].equals("individual") && parts[2].equals("average")) {
+                        String name = parts[3];
+                        System.out.println(scoreManager.showIndividualAverage(name));
+                    } else if (parts[1].equals("individual") && parts[2].equals("score")) {
+                        String name = parts[3];
+                        int[] scores = scoreManager.showIndividualScore(name);
+                        if (scores != null) {
+                            System.out.print(name);
+                            for (int score : scores) {
+                                System.out.print(" " + score);
+                            }
+                            System.out.println();
+                        } else {
+                            System.out.println("查無資料");
+                        }
+                    } else if (parts[1].startsWith("Homework")) {
+                        String numberStr = parts[1].substring(8);
+                        int number = Integer.parseInt(numberStr);
+                        System.out.println(scoreManager.showHomeworkAverage(number));
+                    } else if (parts[1].startsWith("Final")) {
+                        String numberStr = parts[2].substring(7);
+                        int number = Integer.parseInt(numberStr);
+                        System.out.println(scoreManager.showFinalProjectAverage(number));
+                    } else if (parts[1].equals("total")) {
+                        String result = scoreManager.showTotal();
+                        System.out.print(result);
+                    } else {
+                        System.out.println("指令輸入錯誤!請重新輸入");
+                    }
+                    break;
+                default:
+                    System.out.println("指令輸入錯誤!請重新輸入");
+                    continue;
             }
-
-            else {
-                System.out.println("指令輸入錯誤!請重新輸入");
-                continue;
-            }
-
-
         }
     }
 }
