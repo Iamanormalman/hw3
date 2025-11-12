@@ -1,4 +1,4 @@
-import java,util.ArrayList;
+import java.util.ArrayList;
 
 public class ScoreManager {
     private ArrayList<Student> students;
@@ -8,7 +8,8 @@ public class ScoreManager {
     }
 
     public void addStudent(String name, int[] scores){
-
+        Student name = new Student(name, scores);
+        students.add(name);
     }
 
     public void deleteStudent(String name){
@@ -31,7 +32,7 @@ public class ScoreManager {
 
     }
 
-    public String[][] showTotal(){
+    public String showTotal(){
 
     }
 }
