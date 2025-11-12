@@ -1,4 +1,11 @@
+import java,util.ArrayList;
+
 public class ScoreManager {
+    private ArrayList<Student> students;
+
+    public ScoreManager(){
+        students = new ArrayList<>();
+    }
 
     public void addStudent(String name, int[] scores){
 
@@ -8,23 +15,23 @@ public class ScoreManager {
 
     }
 
-    public showIndividualScore(String name){
+    public int[] showIndividualScore(String name){
 
     }
 
-    public showIndividualAverage(String name){
+    public double showIndividualAverage(String name){
 
     }
 
-    public showHomeworkAverage(int number){
+    public double showHomeworkAverage(int number){
 
     }
 
-    public showFinalProjectAverage(int number){
+    public double showFinalProjectAverage(int number){
 
     }
 
-    public showTotal(){
+    public String[][] showTotal(){
 
     }
 }
