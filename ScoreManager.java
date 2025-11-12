@@ -8,12 +8,15 @@ public class ScoreManager {
     }
 
     public void addStudent(String name, int[] scores){
-        Student name = new Student(name, scores);
-        students.add(name);
+        students.add(new Student(name, scores));
     }
 
     public void deleteStudent(String name){
-
+        for(Student s:students){
+            if(s.getName().equals(name)){
+                students.remove(s);
+            }
+        }
     }
 
     public int[] showIndividualScore(String name){
