@@ -1,12 +1,17 @@
 public class Student {
     private String name;
-    private Int[] score;
+    private int[] score;
+
+    public student(String neme, int[] score){
+        this.name = Student.getName();
+        this.score = Student.getScore();
+    }
 
     public String getName() {
         return name;
     }
 
-    public Int[] getScore() {
+    public int[] getScore() {
         return score;
     }
 
