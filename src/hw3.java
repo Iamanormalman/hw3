@@ -23,7 +23,20 @@ public class hw3 {
         }
         reader.close();
 
+        System.out.println("========================================================================================================================");
         System.out.println("歡迎使用成績管理系統");
+        System.out.println("========================================================================================================================");
+        System.out.println("可用指令：");
+        System.out.println("  add [姓名] [Homework1成績,Homework2成績,Homework3成績,Final Project1成績,Final Project2成績]");
+        System.out.println("  delete [姓名]");
+        System.out.println("  update [姓名] [科目] [成績]");
+        System.out.println("  show individual score [姓名]");
+        System.out.println("  show individual average [姓名]");
+        System.out.println("  show Homework[1-3] average");
+        System.out.println("  show Final Project[1-2] average");
+        System.out.println("  show total");
+        System.out.println("  exit");
+        System.out.println("========================================================================================================================");
 
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
@@ -62,40 +75,87 @@ public class hw3 {
                     }
                 }
                 case "delete": {
-                    String name = parts[1];
-                    boolean success = scoreManager.deleteStudent(name);
-                    if (success) {
-                        System.out.println("刪除成功");
-                    } else {
-                        System.out.println("刪除失敗，查無此學生");
+                    try {
+                        String name = parts[1];
+
+                        // 先檢查學生是否存在並顯示資訊
+                        int[] scores = scoreManager.showIndividualScore(name);
+                        if (scores == null) {
+                            System.out.println("刪除失敗：查無此學生");
+                            break;
+                        }
+
+                        // 顯示學生資訊
+                        System.out.print("即將刪除學生：" + name + " (成績：");
+                        for (int i = 0; i < scores.length; i++) {
+                            System.out.print(scores[i]);
+                            if (i < scores.length - 1) System.out.print(", ");
+                        }
+                        System.out.println(")");
+                        System.out.print("確定要刪除嗎？(y/n): ");
+
+                        String confirm = input.nextLine().trim().toLowerCase();
+                        if (confirm.equals("y") || confirm.equals("yes")) {
+                            boolean success = scoreManager.deleteStudent(name);
+                            if (success) {
+                                System.out.println("刪除成功");
+                            }
+                        } else {
+                            System.out.println("已取消刪除");
+                        }
+                        break;
+                    } catch (Exception e) {
+                        System.out.println("刪除失敗：格式錯誤");
                     }
-                    break;
                 }
                 case "update": {
                     try {
                         String name = parts[1];
                         String subject;
-                        int score;
+                        int newScore;
 
                         if (parts[2].equals("Final") && parts.length >= 5) {
                             subject = parts[2] + " " + parts[3];
-                            score = Integer.parseInt(parts[4]);
+                            newScore = Integer.parseInt(parts[4]);
                         } else {
                             subject = parts[2];
-                            score = Integer.parseInt(parts[3]);
+                            newScore = Integer.parseInt(parts[3]);
                         }
 
-                        boolean success = scoreManager.updateScore(name, subject, score);
+                        // 先取得舊成績
+                        int[] oldScores = scoreManager.showIndividualScore(name);
+                        if (oldScores == null) {
+                            System.out.println("修改失敗：學生不存在");
+                            break;
+                        }
+
+                        // 判斷科目索引來取得舊成績
+                        int index = -1;
+                        if (subject.equals("Homework1")) index = 0;
+                        else if (subject.equals("Homework2")) index = 1;
+                        else if (subject.equals("Homework3")) index = 2;
+                        else if (subject.equals("Final Project1")) index = 3;
+                        else if (subject.equals("Final Project2")) index = 4;
+
+                        if (index == -1) {
+                            System.out.println("修改失敗：科目名稱錯誤");
+                            break;
+                        }
+
+                        int oldScore = oldScores[index];
+
+                        boolean success = scoreManager.updateScore(name, subject, newScore);
                         if (success) {
-                            System.out.println("修改成功");
+                            System.out.println("修改成功：" + name + " 的 " + subject + " 從 " + oldScore + " 改為 " + newScore);
                         } else {
-                            System.out.println("修改失敗：學生不存在或科目名稱錯誤");
+                            System.out.println("修改失敗");
                         }
                         break;
                     } catch (Exception e) {
                         System.out.println("修改失敗：格式錯誤，正確格式為 update [Student name] [科目] [成績]");
                     }
-                }                case "show":
+                }
+                case "show":
                     if (parts[1].equals("individual") && parts[2].equals("average")) {
                         try {
                             String name = parts[3];

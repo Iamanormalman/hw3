@@ -63,14 +63,30 @@ public class ScoreManager {
     }
 
     public String showTotal(){
-        String result = "";
-        for(Student s:students){
-            result += s.getName();
-            for(int score:s.getScores()){
-                result += " " + score;
-            }
-            result += "\n";
+        if (students.isEmpty()) {
+            return "目前系統中沒有學生資料";
         }
+
+        String result = "";
+        result += "========================================================================================================================\n";
+        // 標題行 - 使用固定寬度
+        result += String.format("%-11s %-9s %-9s %-8s %-9s %-12s\n",
+                "學生姓名", "作業1", "作業2", "作業3", "專案1", "專案2");
+        result += "========================================================================================================================\n";
+
+        for(Student s : students){
+            int[] scores = s.getScores();
+            // 資料行 - 數字靠右對齊比較好看
+            result += String.format("%-15s %-10d %-10d %-10d %-10d %-10d\n",
+                    s.getName(),
+                    scores[0], scores[1], scores[2], scores[3], scores[4]);
+        }
+        result += "========================================================================================================================\n";
+        result += "統計資訊：\n";
+        result += "  學生總數：" + students.size() + " 人\n";
+        result += "  全班總平均：" + String.format("%.2f", getOverallAverage()) + "\n";
+        result += "========================================================================================================================\n";
+
         return result;
     }
 
@@ -107,5 +123,27 @@ public class ScoreManager {
         }
 
         return student.setIndividualScore(index, score);
+    }
+
+    public int getStudentCount() {
+        return students.size();
+    }
+
+    public double getOverallAverage() {
+        if (students.isEmpty()) {
+            return 0;
+        }
+
+        int totalSum = 0;
+        int totalCount = 0;
+
+        for (Student s : students) {
+            for (int score : s.getScores()) {
+                totalSum += score;
+                totalCount++;
+            }
+        }
+
+        return (double)totalSum / totalCount;
     }
 }
