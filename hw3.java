@@ -23,7 +23,7 @@ public class hw3 {
         }
         reader.close();
 
-        System.out.println("歡迎使用成績管理系統")
+        System.out.println("歡迎使用成績管理系統");
 
         Scanner input = new Scanner(System.in);
         String command = input.nextLine();
