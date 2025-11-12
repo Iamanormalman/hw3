@@ -1,25 +1,25 @@
 public class Student {
     private String name;
-    private int[] score;
+    private int[] scores;
 
-    public student(String neme, int[] score){
-        this.name = Student.getName();
-        this.score = Student.getScore();
+    public student(String name, int[] scores){
+        this.name = name;
+        this.scores = scores.clone();
     }
 
     public String getName() {
         return name;
     }
 
-    public int[] getScore() {
-        return score;
+    public int[] getScores() {
+        return scores.clone();
     }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    public void setScore(Int[] score) {
-        this.score = score;
+    public void setScore(int[] scores) {
+        this.scores = scores.clone();
     }
 }
