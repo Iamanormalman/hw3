@@ -70,7 +70,7 @@ public class hw3 {
                 case "show":
                     if (parts[1].equals("individual") && parts[2].equals("average")) {
                         String name = parts[3];
-                        System.out.println(scoreManager.showIndividualAverage(name));
+                        System.out.println(formatAverage(scoreManager.showIndividualAverage(name)));
                     } else if (parts[1].equals("individual") && parts[2].equals("score")) {
                         String name = parts[3];
                         int[] scores = scoreManager.showIndividualScore(name);
@@ -86,11 +86,11 @@ public class hw3 {
                     } else if (parts[1].startsWith("Homework")) {
                         String numberStr = parts[1].substring(8);
                         int number = Integer.parseInt(numberStr);
-                        System.out.println(scoreManager.showHomeworkAverage(number));
+                        System.out.println(formatAverage(scoreManager.showHomeworkAverage(number)));
                     } else if (parts[1].startsWith("Final")) {
                         String numberStr = parts[2].substring(7);
                         int number = Integer.parseInt(numberStr);
-                        System.out.println(scoreManager.showFinalProjectAverage(number));
+                        System.out.println(formatAverage(scoreManager.showFinalProjectAverage(number)));
                     } else if (parts[1].equals("total")) {
                         String result = scoreManager.showTotal();
                         System.out.print(result);
@@ -100,8 +100,21 @@ public class hw3 {
                     break;
                 default:
                     System.out.println("指令輸入錯誤!請重新輸入");
-                    continue;
             }
         }
+    }
+
+    public static String formatAverage(double avg){
+        double rounded = Math.round(avg*100.0/100.0);
+
+        if(rounded == (int)rounded){
+            return String.valueOf((int)rounded);
+        }
+
+        String formatted = String.format("%.2f",rounded);
+        if(formatted.endsWith("0") && !formatted.endsWith(".0")){
+            formatted = formatted.substring(0, formatted.length() - 1);
+        }
+        return formatted;
     }
 }
