@@ -73,19 +73,18 @@ public class hw3 {
                     } catch (Exception e){
                         System.out.println("新增失敗：格式錯誤，正確格式為 add [Student name] [Homework1, Homework2, Homework3, Final Project1, Final Project2]");
                     }
+                    break;
                 }
                 case "delete": {
                     try {
                         String name = parts[1];
 
-                        // 先檢查學生是否存在並顯示資訊
                         int[] scores = scoreManager.showIndividualScore(name);
                         if (scores == null) {
                             System.out.println("刪除失敗：查無此學生");
                             break;
                         }
 
-                        // 顯示學生資訊
                         System.out.print("即將刪除學生：" + name + " (成績：");
                         for (int i = 0; i < scores.length; i++) {
                             System.out.print(scores[i]);
@@ -107,6 +106,7 @@ public class hw3 {
                     } catch (Exception e) {
                         System.out.println("刪除失敗：格式錯誤");
                     }
+                    break;
                 }
                 case "update": {
                     try {
@@ -122,14 +122,12 @@ public class hw3 {
                             newScore = Integer.parseInt(parts[3]);
                         }
 
-                        // 先取得舊成績
                         int[] oldScores = scoreManager.showIndividualScore(name);
                         if (oldScores == null) {
                             System.out.println("修改失敗：學生不存在");
                             break;
                         }
 
-                        // 判斷科目索引來取得舊成績
                         int index = -1;
                         if (subject.equals("Homework1")) index = 0;
                         else if (subject.equals("Homework2")) index = 1;
@@ -154,10 +152,16 @@ public class hw3 {
                     } catch (Exception e) {
                         System.out.println("修改失敗：格式錯誤，正確格式為 update [Student name] [科目] [成績]");
                     }
+                    break;
                 }
                 case "show":
-                    if (parts[1].equals("individual") && parts[2].equals("average")) {
-                        try {
+                    try {
+                        if (parts.length < 2) {
+                            System.out.println("指令輸入錯誤!請重新輸入");
+                            break;
+                        }
+
+                        if (parts[1].equals("individual") && parts.length >= 4 && parts[2].equals("average")) {
                             String name = parts[3];
                             double avg = scoreManager.showIndividualAverage(name);
                             if (avg == -1) {
@@ -165,11 +169,7 @@ public class hw3 {
                             } else {
                                 System.out.println(formatAverage(avg));
                             }
-                        } catch (Exception e){
-                            System.out.println("格式錯誤，正確格式為 show individual average [Student name]");
-                        }
-                    } else if (parts[1].equals("individual") && parts[2].equals("score")) {
-                        try {
+                        } else if (parts[1].equals("individual") && parts.length >= 4 && parts[2].equals("score")) {
                             String name = parts[3];
                             int[] scores = scoreManager.showIndividualScore(name);
                             if (scores != null) {
@@ -181,21 +181,21 @@ public class hw3 {
                             } else {
                                 System.out.println("查無資料");
                             }
-                        } catch (Exception e){
-                            System.out.println("格式錯誤，正確格式為 show individual score [Student name]");
+                        } else if (parts[1].startsWith("Homework")) {
+                            String numberStr = parts[1].substring(8);
+                            int number = Integer.parseInt(numberStr);
+                            System.out.println(formatAverage(scoreManager.showHomeworkAverage(number)));
+                        } else if (parts[1].equals("Final") && parts.length >= 4) {
+                            String numberStr = parts[2].substring(7);
+                            int number = Integer.parseInt(numberStr);
+                            System.out.println(formatAverage(scoreManager.showFinalProjectAverage(number)));
+                        } else if (parts[1].equals("total")) {
+                            String result = scoreManager.showTotal();
+                            System.out.print(result);
+                        } else {
+                            System.out.println("指令輸入錯誤!請重新輸入");
                         }
-                    } else if (parts[1].startsWith("Homework")) {
-                        String numberStr = parts[1].substring(8);
-                        int number = Integer.parseInt(numberStr);
-                        System.out.println(formatAverage(scoreManager.showHomeworkAverage(number)));
-                    } else if (parts[1].startsWith("Final")) {
-                        String numberStr = parts[2].substring(7);
-                        int number = Integer.parseInt(numberStr);
-                        System.out.println(formatAverage(scoreManager.showFinalProjectAverage(number)));
-                    } else if (parts[1].equals("total")) {
-                        String result = scoreManager.showTotal();
-                        System.out.print(result);
-                    } else {
+                    } catch (Exception e) {
                         System.out.println("指令輸入錯誤!請重新輸入");
                     }
                     break;
