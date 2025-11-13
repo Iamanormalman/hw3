@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class ScoreManager {
     private ArrayList<Student> students;
@@ -14,9 +15,12 @@ public class ScoreManager {
     }
 
     public boolean deleteStudent(String name){
-        for(Student s:students){
+        Iterator<Student> iterator = students.iterator();
+
+        while(iterator.hasNext()){
+            Student s = iterator.next();
             if(s.getName().equals(name)){
-                students.remove(s);
+                iterator.remove();
                 return true;
             }
         }
