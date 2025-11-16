@@ -209,7 +209,7 @@ public class hw3 {
         }
     }
 
-    //將傳入的double數值，依照作業要求的格式處理好後，再return回去
+    //將傳入的double數值，依照作業規範要求的格式處理好後，再return回去
     public static String formatAverage(double avg){
         double rounded = Math.round(avg*100.0)/100.0;
 
