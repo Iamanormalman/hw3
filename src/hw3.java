@@ -3,13 +3,16 @@ import java.util.Scanner;
 
 public class hw3 {
     public static void main(String[] args) throws Exception {
+        //程式啟動時必須且只能提供一個檔案，否則就結束程式
         if (args.length != 1) {
             System.out.println("必須且只能有一個檔案");
             System.exit(0);
         }
 
+        // 建立 ScoreManager 核心物件，用於管理所有學生資料和相關操作
         ScoreManager scoreManager = new ScoreManager();
 
+        //用reader物件讀取檔案，把每行的文字根據一個或多個空白分割，第一個字是姓名，後面五個則是成績，建立一個陣列來儲存轉成整數後的成績資料，然後關閉reader
         File file = new File(args[0]);
         Scanner reader = new Scanner(file);
         while (reader.hasNextLine()) {
@@ -23,6 +26,7 @@ public class hw3 {
         }
         reader.close();
 
+        //顯示歡迎訊息，並列出所有可用指令
         System.out.println("========================================================================================================================");
         System.out.println("歡迎使用成績管理系統");
         System.out.println("========================================================================================================================");
@@ -38,9 +42,9 @@ public class hw3 {
         System.out.println("  exit");
         System.out.println("========================================================================================================================");
 
+        //持續讀取使用者輸入的指令，用switch判斷指令並呼叫ScoreManager的各個方法，同時做好錯誤處理。若是只按Enter則繼續下一次迴圈，而若是輸入exit則結束程式
         Scanner input = new Scanner(System.in);
         boolean isRunning = true;
-        label:
         while (isRunning) {
             System.out.print(">");
             String inputLine = input.nextLine().trim();
@@ -53,7 +57,7 @@ public class hw3 {
                 case "exit":
                     System.out.println("感謝使用!再見!");
                     isRunning = false;
-                    break label;
+                    break;
                 case "add": {
                     try {
                         String name = parts[1];
@@ -205,6 +209,7 @@ public class hw3 {
         }
     }
 
+    //將傳入的double數值，依照作業要求的格式處理好後，再return回去
     public static String formatAverage(double avg){
         double rounded = Math.round(avg*100.0)/100.0;
 
